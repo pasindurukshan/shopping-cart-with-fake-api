@@ -1,11 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 
 const Navbar = () => {
     
-    const state = useSelector((state) => state.handleCart);
+    const cart = JSON.parse(localStorage.getItem("cart")) || []
 
   return (
       <div>
@@ -42,13 +41,13 @@ const Navbar = () => {
             
             <div className='buttons'>
                 <NavLink to="/login" className='btn btn-outline-dark ms-2'>
-                <i className='fa fa-sign-in me-1'> Login</i>
+                <i className='fa fa-sign-in me-1'> </i> Login
                 </NavLink>
                 <NavLink to="/register" className='btn btn-outline-dark ms-2'>
-                <i className='fa fa-user-plus me-1 '> Register</i>
+                <i className='fa fa-user-plus me-1 '> </i> Register
                 </NavLink>
                 <NavLink to="/cart" className='btn btn-outline-dark ms-2'>
-                <i className='fa fa-cart-plus me-1'> Cart (0)</i>
+                              <i className='fa fa-cart-plus me-1'> </i> Cart ({ cart.length})
                 </NavLink>
             </div>
             </div>

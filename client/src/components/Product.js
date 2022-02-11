@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch } from 'react-redux';
-import { addCart } from './redux/action';
 import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
@@ -11,9 +9,40 @@ const Product = () => {
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const dispatch = useDispatch();
-    const addProduct = (product) => { 
-        dispatch(addCart(product));
+    const addProduct = (product) => {
+        //dispatch(addCart(product));
+        const state = JSON.parse(localStorage.getItem("cart")) || []
+        console.log('cart', state)
+        let cart = []
+        if (state.length !== 0) {
+            const exist = state.find((x) => x.id === product.id);
+            if (exist) {
+                //Increase the Quantity 
+                cart = state.map((x) => x.id === product.id ? { ...x, qty: x.qty + 1 } : x);
+              
+            } else {
+               cart = [
+                    ...state,
+                    {
+                        ...product,
+                        qty: 1,
+                    }
+                ]
+               
+            }
+            localStorage.setItem("cart", JSON.stringify(cart))
+            
+            window.location.reload(false);
+            return
+        }
+        cart[0] = {
+                        ...product,
+                        qty: 1,
+                    }
+        localStorage.setItem("cart", JSON.stringify(cart))
+        
+            window.location.reload(false);
+            return
     }
 
     useEffect(() => {
