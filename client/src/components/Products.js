@@ -33,7 +33,8 @@ const Products = () => {
     const Loading = () => { 
         return (
             <>
-                <div className='col-md-3'>
+                Loading.....
+                {/* <div className='col-md-3'>
                     <Skeleton height={350}/>
                 </div>
                 <div className='col-md-3'>
@@ -44,7 +45,7 @@ const Products = () => {
                 </div>
                 <div className='col-md-3'>
                     <Skeleton height={350}/>
-                </div>
+                </div> */}
             </> 
         )
     }
@@ -99,7 +100,8 @@ const ShowProducts = () => {
                 </div>
             </div>
               <div className="row justify-content-center">
-                  {loading ? <Loading/> : <ShowProducts/>}
+                  {loading ? <Loading /> : <ShowProducts />}
+                  
             </div>
         </div>
     </div>

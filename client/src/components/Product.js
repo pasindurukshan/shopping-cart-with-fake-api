@@ -24,7 +24,8 @@ const Product = () => {
     const Loading = () => { 
         return (
             <>
-                <div className='col-md-6'>
+                Loading.....
+                {/* <div className='col-md-6'>
                     <Skeleton height={400}/>
                 </div>
                 <div className='col-md-6' style={{lineHeight:2}}>
@@ -35,7 +36,7 @@ const Product = () => {
                     <Skeleton height={150} />
                     <Skeleton height={50} width={100}/>
                     <Skeleton height={50} width={100} style={{marginLeft:6}}/>
-                </div>
+                </div> */}
             </> 
         )
     }
@@ -43,8 +44,9 @@ const Product = () => {
     const ShowProduct = () => { 
         return (
             <>
+                
                 <div className='col-md-6'>
-                    <img src={product.image} alt={ product.title} height="400px" width="400px"/>
+                    <img src={product.image} alt={ product.title} height="350px" width="350px"/>
                 </div>
                 <div className='col-md-6'>
                     <h4>
@@ -56,7 +58,7 @@ const Product = () => {
                         <i className='fa fa-star'></i>
                     </p>
                     <h3 className='display-6 fw-bold my-4'>
-                        $ { product.price}
+                        Rs. {(product.price)*100}
                     </h3>
                     <p className='lead'>{product.description}</p>
                     <button className='btn btn-outline-dark px-4 py-2'>
