@@ -1,18 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { delCart, addCart } from './redux/action/index';
 import { NavLink } from 'react-router-dom'
 
 
 const Cart = () => {
 
      const state = JSON.parse(localStorage.getItem("cart")) || []
-    const dispatch = useDispatch();
-
-    const handleClose = (Item) => { 
-        dispatch(delCart(Item))
-    }
+ 
     const handleReduce = (product) => {
         //dispatch(delCart(item))
         const state = JSON.parse(localStorage.getItem("cart")) || []
