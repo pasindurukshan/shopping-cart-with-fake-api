@@ -12,8 +12,36 @@ const Product = () => {
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
-    const addProduct = (product) => { 
-        dispatch(addCart(product));
+    const addProduct = (product) => {
+        //dispatch(addCart(product));
+        const state = JSON.parse(localStorage.getItem("cart")) || []
+        console.log('cart', state)
+        let cart = []
+        if (state.length !== 0) {
+            const exist = state.find((x) => x.id === product.id);
+            if (exist) {
+                //Increase the Quantity 
+                cart = state.map((x) => x.id === product.id ? { ...x, qty: x.qty + 1 } : x);
+              
+            } else {
+               cart = [
+                    ...state,
+                    {
+                        ...product,
+                        qty: 1,
+                    }
+                ]
+               
+            }
+            localStorage.setItem("cart",  JSON.stringify(cart))
+            return
+        }
+        cart[0] = {
+                        ...product,
+                        qty: 1,
+                    }
+        localStorage.setItem("cart", JSON.stringify(cart))
+            return
     }
 
     useEffect(() => {
