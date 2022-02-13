@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import Skeleton from 'react-loading-skeleton';
-
 
 
 const Products = () => {
@@ -33,35 +31,51 @@ const Products = () => {
     const Loading = () => { 
         return (
             <>
-                Loading.....
-                {/* <div className='col-md-3'>
-                    <Skeleton height={350}/>
-                </div>
-                <div className='col-md-3'>
-                    <Skeleton height={350}/>
-                </div>
-                <div className='col-md-3'>
-                    <Skeleton height={350}/>
-                </div>
-                <div className='col-md-3'>
-                    <Skeleton height={350}/>
-                </div> */}
+            <div id="root">
+                    <div id="pre-loader">
+                    <img src="/assets/lo1.gif" />
+            </div>
+            </div>
+
             </> 
         )
     }
 
+ 
+    //Search Handling 
+    const [q, setQ] = useState("");
+        //     set search parameters
+        //     we only what to search countries by capital and name
+        //     this list can be longer if you want
+        //     you can search countries even by their population
+        // just add it to this array
+        const [searchParam] = useState(["capital", "name"]);
 
-    const filterProduct = (cat) => { 
-        const updatedList = data.filter((x) => x.category === cat);
-        setFilter(updatedList);
-    }   
+    
+        useEffect(() => {
+            const getProducts = async () => { 
+            setLoading(true);
+            const response = await fetch("https://fakestoreapi.com/products");
+            if (componentMounted) { 
+                setData(await response.clone().json());
+                setFilter(await response.json());
+                // setLoading(false);
+                // console.log(filter);
+            }
+
+            // return () => { 
+            //     componentMounted = false;
+            // }
+        }
+        getProducts();
+        }, []);
+
     
  
 
 const ShowProducts = () => {
     return (
-        <>
-        
+        <>   
         
         {filter.map((product) => {
             return (
@@ -87,12 +101,6 @@ const ShowProducts = () => {
   return (
     <div>
         <div className="container my-5 py-5">
-            <div className="row">
-                <div className="col-12 mb-5">
-                      <h1 className='dispaly-6 fw-bolder text-center'>Latest Products</h1>
-                      <hr />
-                </div>
-            </div>
               <div className="row justify-content-center">
                   {loading ? <Loading /> : <ShowProducts />}
                   
