@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
@@ -9,12 +10,17 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 
 function App() {
+  const [searchTerm, setsearchTerm] = useState("")
+
+  const setSearch = (word) => {
+    setsearchTerm(word)
+  }
+
   return (
     <>
-      <Navbar />
+      <Navbar setSearch={setSearch} searchTerm={searchTerm}/>
         <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/products" component={Products} />
+        <Route exact path="/" render={(props) => <Home {...props} searchTerm={searchTerm} />} />
         <Route exact path="/products/:id" component={Product} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />

@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-
-const Products = () => {
+//all product
+const Products = (props) => {
 
     const [data, setData] = useState([]);
-    const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
-    let componentMounted = true;
 
     useEffect(() => {
         const getProducts = async () => { 
             setLoading(true);
             const response = await fetch("https://fakestoreapi.com/products");
-            if (componentMounted) { 
-                setData(await response.clone().json());
-                setFilter(await response.json());
+                if (props.searchTerm) {
+                    const dataR = await response.clone().json()
+                    const result = dataR.filter(product => product.title.toLowerCase().includes(props.searchTerm.toLowerCase()))
+              
+                    setData(result)
+                }
+                else {
+                    setData(await response.clone().json());
+                }
                 setLoading(false);
-                console.log(filter);
-            }
-
-            return () => { 
-                componentMounted = false;
-            }
         }
         getProducts();
-    }, [])
+    }, [props.searchTerm])    
 
 
     const Loading = () => { 
@@ -41,43 +39,12 @@ const Products = () => {
         )
     }
 
- 
-    //Search Handling 
-    const [q, setQ] = useState("");
-        //     set search parameters
-        //     we only what to search countries by capital and name
-        //     this list can be longer if you want
-        //     you can search countries even by their population
-        // just add it to this array
-        const [searchParam] = useState(["capital", "name"]);
-
-    
-        useEffect(() => {
-            const getProducts = async () => { 
-            setLoading(true);
-            const response = await fetch("https://fakestoreapi.com/products");
-            if (componentMounted) { 
-                setData(await response.clone().json());
-                setFilter(await response.json());
-                // setLoading(false);
-                // console.log(filter);
-            }
-
-            // return () => { 
-            //     componentMounted = false;
-            // }
-        }
-        getProducts();
-        }, []);
-
-    
- 
-
+//product view set
 const ShowProducts = () => {
     return (
         <>   
         
-        {filter.map((product) => {
+        {data.map((product) => {
             return (
                 <>
                     <div className="col-md-3 mb-5">

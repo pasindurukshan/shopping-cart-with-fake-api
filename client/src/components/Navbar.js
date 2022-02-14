@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 
-const Navbar = () => {
+const Navbar = (props) => {
     
     const cart = JSON.parse(localStorage.getItem("cart")) || []
 
@@ -17,8 +17,8 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             
             <form className="d-flex">
-                <input className="form-control" type="search" style={{width: '700px'}} placeholder="Search" aria-label="Search"/>
-                <button className="btn btn-outline-success ms-1" type="submit">Search</button>
+                <input onChange={e => props.setSearch(e.target.value)} value={props.searchTerm} className="form-control" type="search" style={{width: '700px'}} placeholder="Search" aria-label="Search"/>
+                {/* <button className="btn btn-outline-success ms-1" type="submit">Search</button> */}
             </form>
             
             
