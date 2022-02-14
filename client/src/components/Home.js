@@ -1,10 +1,10 @@
 import React from 'react'
 import Products from './Products'
 
-const Home = () => {
+const Home = ({searchTerm}) => {
   return (
     <div>
-        <Products/>
+        <Products searchTerm={searchTerm}/>
     </div>
   )
 }

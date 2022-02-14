@@ -16,6 +16,7 @@ const Signup = () => {
                         <button class="button2" align="right" role="group" aria-label="register">Register</button>
                         </a>
                     </div>
+                    
                 </div>
                 
                 <div className="modal-body">                       
@@ -32,7 +33,6 @@ const Signup = () => {
                         <div className="mb-3">
                             <label htmlFor="phone" className="form-label">Mobile</label>
                             <input type="tel" className="form-control" id="phone" />
-                            {/* <div id="emailHelp" className="form-text">Help statement.</div> */}
                         </div>
 
                         

@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react';
+import swal from 'sweetalert2';
 
 
+//cart implementation
+const Cart = () => {  
 
-const Cart = () => {
-
-     const state = JSON.parse(localStorage.getItem("cart")) || []
+    const state = JSON.parse(localStorage.getItem("cart")) || []
+    
+    let total = 0
+    state.forEach(item => {
+        total += +item.price * +item.qty
+    });
  
     const handleReduce = (product) => {
-        //dispatch(delCart(item))
         const state = JSON.parse(localStorage.getItem("cart")) || []
         let cart = []
 
@@ -22,13 +27,11 @@ const Cart = () => {
      }
     
     const handleAdd = (product) => {
-        //dispatch(addCart(item))
           const state = JSON.parse(localStorage.getItem("cart")) || []
         let cart = []
         if (state.length !== 0) {
             const exist = state.find((x) => x.id === product.id);
             if (exist) {
-                //Increase the Quantity 
                 cart = state.map((x) => x.id === product.id ? { ...x, qty: x.qty + 1 } : x);
               
             } else {
@@ -51,6 +54,8 @@ const Cart = () => {
             return
      }
 
+    
+//cart
     const products = state.map((product) => { 
         return (
             <>
@@ -82,23 +87,31 @@ const Cart = () => {
 
 
 //Checkout  
-    // const Checkout = state.map((product) => {
-
-    //     var total = 0;
-    //     const productList = (product) => {
-    //         total = total + product.price;
-    //         return (
-    //             <li className="list-group-item d-flex justify-content-between lh-sm">
-    //                 <div>
-    //                     <h6 className="my-0">{product.title}</h6>
-    //                 </div>
-    //                 <span className="text-muted">${product.price}</span>
-    //             </li>
-    //         );
-    //     }
-    // })
+    const checkoutList = state.map((product) => {
+        
+            return (
+                <li className="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 className="my-0">{product.title.substring(0,12)}</h6>
+                    </div>
+                    <span className="text-muted">Rs. {(product.price)*100}</span>
+                </li>
+            );
+        
+    })
 
 
+//Checkpout message
+    function alertmessage() {
+        // swal("Oops!", "Something went wrong!", "error")
+        swal.fire(
+            "Successfull",
+            "Your order has been successfully placed",
+            "success"
+        )
+    }
+
+    
     return (
         <>
             <div className="container my-5">
@@ -111,15 +124,20 @@ const Cart = () => {
                             <span className="badge bg-primary rounded-pill">{state.length}</span>
                         </h4>
                         <ul className="list-group mb-3">
-                            {/* {state.map(productList)} */}
+                            {checkoutList}
 
                             <li className="list-group-item d-flex justify-content-between">
-                                <span>Total (Rs. )</span>
-                                {/* <strong>${total}</strong> */}
+                                <span><h4>Total (Rs. )</h4></span>
+                                <strong><h4>{(total*100).toFixed(2)}</h4></strong>
                             </li>
                         </ul>
 
-                        <button type="submit" className="btn btn-primary w-100 mt-5">Checkout</button>
+                        <button type="submit" onClick={alertmessage} className="btn btn-primary w-100 mt-5">Checkout</button>
+                        
+                       
+
+                           
+                                               
                     </div>    
 
                         <a href="/">
